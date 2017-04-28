@@ -25,7 +25,7 @@
 						<c:forEach items="${picList }" var="pic">
 							<div class="pItem">
 								<p><input type="checkbox" class="pCheck">${pic.regdateText }</p>
-								<a href="#" class="showImage"><img alt="" src="display?filename=${pic.fullname }"></a>
+								<a href="#" class="showImage"><img alt="${pic.originalname }" src="display?filename=${pic.fullname }"></a>
 							</div>
 						</c:forEach>
 					</c:if>
@@ -45,16 +45,51 @@
 		</div>
 	</div>
 </section>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">사진 보기</h4>
+      </div>
+      <div class="modal-body">
+        <img alt="" src="" id="modalImg">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<style>
+	#myModal .modal-dialog{width:70% !important;}
+	#myModal .modal-dialog .modal-body{text-align: center;}
+	#myModal .modal-dialog #modalImg{width: 80%;}
+</style>
 <script>
  	//var result = "${result}";
-	if("${result}"=="success"){
+	if("${result}"=="SUCCESS"){
 		alert("성공적으로 등록되었습니다.");
-	}else if("${result}"=="removeSuccess"){
+	}else if("${result}"=="rSUCCESS"){
 		alert("성공적으로 삭제되었습니다.");
+	}else if("${result}"=="FAIL"){
+		alert("등록에 실패하였습니다.");
+	}else if("${result}"=="rFAIL"){
+		alert("삭제에 실패하였습니다.");
 	}
 	
 	$(function(){
-		
+		$(".showImage").click(function(){
+			var path = $(this).find("img").attr("alt");
+			console.log("Path : "+path);
+			$("#modalImg").attr("src","display?filename="+path);
+			$(this).attr("data-toggle","modal").attr("data-target","#myModal");
+			 //data-toggle="modal" data-target="#myModal"
+		});
 		
 	});//ready
 </script>

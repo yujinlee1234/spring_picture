@@ -1,5 +1,7 @@
 package com.dgit.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,6 +70,7 @@ public class PictureController {
 				PictureVO vo = new PictureVO();
 				vo.setFullname(fileName);
 				vo.setUno(((LoginDTO)session.getAttribute("auth")).getUno());
+				logger.info("postAdd", vo.getOriginalname());
 				service.registPicture(vo);
 			}
 			rttr.addFlashAttribute("result", "SUCCESS");

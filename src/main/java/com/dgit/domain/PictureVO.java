@@ -31,4 +31,9 @@ public class PictureVO {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(regdate);
 	}
+	public String getOriginalname() {
+		String path = fullname.substring(0, fullname.lastIndexOf("/")+1);
+		String originalFileName = fullname.substring(fullname.lastIndexOf("/")+3);
+		return path+originalFileName;
+	}	
 }
