@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgit.mapper.MemberMapper">
+	<insert id="insertMember">
+		insert into picturemanager.`member`(uid, upw, uname, uemail, utel)
+		 values(#{uid}, #{upw}, #{uname}, #{uemail}, #{utel} )
+	</insert>
+	<select id="selectMemberByID" resultType="MemberVO">
+		select * from picturemanager.`member` where uid=#{id}
+	</select>
+	<select id="selectMemberByIDPW" resultType="MemberVO">
+		select * from picturemanager.`member` where uid=#{uid} and upw=#{upw}
+	</select>
+</mapper>

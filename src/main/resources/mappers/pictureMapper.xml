@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgit.mapper.PictureMapper">
+	<insert id="insertPicture">
+		insert into picturemanager.picture(fullname, uno)
+		 values(#{fullname},#{uno})
+	</insert>
+	<select id="selectPicture" resultType="PictureVO">
+		select * from picturemanager.picture where fullname = #{fullname}
+	</select>
+	<select id="selectPictureList" resultType="PictureVO">
+		select * from picturemanager.picture order by regdate desc
+	</select>
+</mapper>
