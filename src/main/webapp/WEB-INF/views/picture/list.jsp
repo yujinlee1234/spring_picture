@@ -5,7 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 	div.pItem{width:200px; float: left; margin: 10px;}
-	.pItem .pCheck{display: none;}
+	.pItem .pCheck{display: none; float: left;}
+	.pItem p{text-align: right;padding-right: 20px;}
 	div#noItem figure{width: 100%; text-align: center;}
 	#delBtn{display: none;}
 	#cancelBtn{display: none;}

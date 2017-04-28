@@ -16,7 +16,7 @@
 						</div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary">사진 추가</button>
-							<button type="reset" class="btn btn-primary">취소</button>
+							<button type="reset" class="btn btn-primary" id="btnBack">취소</button>
 						</div>
 					</form>
 				</div>
@@ -24,4 +24,9 @@
 		</div>
 	</div>
 </section>
+<script>
+	$("#btnBack").click(function(){
+		location.href="list";
+	});
+</script>
 <%@ include file="../include/footer.jsp" %>
