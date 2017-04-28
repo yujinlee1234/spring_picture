@@ -34,6 +34,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/picture/add"/>
+			<mapping path="/picture/del"/>
 			<beans:ref bean="authIntercepter"/>
 		</interceptor>
 	</interceptors>

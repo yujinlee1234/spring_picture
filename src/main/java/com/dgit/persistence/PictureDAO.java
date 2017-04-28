@@ -12,4 +12,6 @@ public interface PictureDAO {
 	public PictureVO selectPicture(String fullname) throws Exception;
 	
 	public List<PictureVO> selectPictureList()throws Exception;
+	
+	public void deletePicture(String fullname)throws Exception;
 }

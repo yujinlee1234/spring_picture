@@ -13,4 +13,6 @@ public interface PictureService {
 	public PictureVO getPicture(String fullname) throws Exception;
 	
 	public List<PictureVO> getPictureList()throws Exception;
+	
+	public void removeSelectedPicture(String fullname)throws Exception;
 }

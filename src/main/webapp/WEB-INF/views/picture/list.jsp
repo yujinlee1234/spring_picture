@@ -7,24 +7,27 @@
 	div.pItem{width:200px; float: left; margin: 10px;}
 	.pItem .pCheck{display: none;}
 	div#noItem figure{width: 100%; text-align: center;}
+	#delBtn{display: none;}
+	#cancelBtn{display: none;}
 </style>
 <section class="content">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="box">
 				<div class="box-body">		
-					<button id="searchBtn" class="btn btn-warning">전체 삭제</button>
-					<button id="newBtn" class="btn btn-primary">선택 삭제</button>				
+					<button id="allDelBtn" class="btn btn-warning">전체 삭제</button>
+					<button id="selDelBtn" class="btn btn-primary">선택 삭제</button>				
 				</div>
 			</div>
 			<div class="box">
 				<div class="box-header with-border">
 				</div>
 				<div class="box-body">
+					<form id="delForm" method="post">
 					<c:if test="${!empty picList }">
 						<c:forEach items="${picList }" var="pic">
 							<div class="pItem">
-								<p><input type="checkbox" class="pCheck">${pic.regdateText }</p>
+								<p><input type="checkbox" name="delFiles" class="pCheck" value="${pic.fullname }">${pic.regdateText }</p>
 								<a href="#" class="showImage"><img alt="${pic.originalname }" src="display?filename=${pic.fullname }"></a>
 							</div>
 						</c:forEach>
@@ -37,9 +40,13 @@
 							</figure>
 						</div>						
 					</c:if>
+					</form>
 				</div>
 				<div class="box-footer">
-					
+					<div class="pull-right">
+						<button id="delBtn" class="btn btn-danger">삭제</button>
+						<button id="cancelBtn" class="btn">취소</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -90,6 +97,53 @@
 			$(this).attr("data-toggle","modal").attr("data-target","#myModal");
 			 //data-toggle="modal" data-target="#myModal"
 		});
+		
+		$("#selDelBtn").click(function(){//선택 삭제 버튼 클릭 시 
+			/* #delBtn{display: none;}
+			#cancelBtn{display: none;} */
+			<c:if test="${empty picList}">
+				alert("삭제할 항목이 없습니다.");
+			</c:if>
+			<c:if test="${!empty picList}">
+				if($("#delBtn").css("display") == "none"){
+					$(".pCheck").css("display","inline");
+					$("#delBtn").css("display","inline");
+					$("#cancelBtn").css("display","inline");
+				}else{
+					$(".pCheck").css("display","none");
+					$("#delBtn").css("display","none");
+					$("#cancelBtn").css("display","none");
+				}
+			</c:if>
+			
+		});
+		
+		$("#cancelBtn").click(function(){
+			$(".pCheck").css("display","none");
+			$("#delBtn").css("display","none");
+			$("#cancelBtn").css("display","none");
+		});
+		
+		$("#allDelBtn").click(function(){
+			<c:if test="${empty picList}">
+				alert("삭제할 항목이 없습니다.");
+			</c:if>
+			<c:if test="${!empty picList}">
+				if(confirm("삭제하시겠습니까?")){
+					location.href="del";
+				}
+			</c:if>
+			
+		});//전체 삭제 버튼
+		
+		$("#delBtn").click(function(){
+			if(confirm("선택한 항목을 삭제하시겠습니까?")){
+				$("#delForm").attr("action", "del");
+				$("#delForm").submit();
+				
+			}
+		});//선택 삭제 버튼
+		
 		
 	});//ready
 </script>

@@ -36,7 +36,7 @@ public class UserController {
 		if(vo != null){
 			LoginDTO auth = new LoginDTO(vo.getUno(), vo.getUid(), vo.getUname(), vo.getUregdate());
 			session.setAttribute("auth", auth);
-			return "/picture/list";
+			return  "redirect:/picture/list";
 		}else if(vo == null){
 			rttr.addFlashAttribute("result", "FAIL");
 			rttr.addFlashAttribute("returnTo", "/user/login");
@@ -52,7 +52,7 @@ public class UserController {
 		if(session.getAttribute("auth")!=null){
 			session.removeAttribute("auth");
 		}
-		return "/picture/list";
+		return "redirect:/picture/list";
 	}
 	
 	/* JOIN */

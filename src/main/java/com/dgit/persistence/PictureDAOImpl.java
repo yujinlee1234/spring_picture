@@ -32,5 +32,11 @@ public class PictureDAOImpl implements PictureDAO{
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+".selectPictureList");
 	}
+	
+	@Override
+	public void deletePicture(String fullname) throws Exception {
+		// TODO Auto-generated method stub
+		session.insert(namespace+".deletePicture", fullname);
+	}
 
 }

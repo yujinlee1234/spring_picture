@@ -1,7 +1,6 @@
 package com.dgit.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -76,6 +79,57 @@ public class PictureController {
 			rttr.addFlashAttribute("result", "SUCCESS");
 		}catch(Exception e){
 			rttr.addFlashAttribute("result", "FAIL");
+		}
+		return "redirect:/picture/list";		
+	}
+	
+	@RequestMapping(value="del",method=RequestMethod.GET)
+	public String getAllDel(RedirectAttributes rttr){//전체 삭제
+		try{
+			List<PictureVO> pList = service.getPictureList();
+			for(PictureVO pic : pList){
+				deleteFile(pic);
+				service.removeSelectedPicture(pic.getFullname());
+			}
+			rttr.addFlashAttribute("result", "rSUCCESS");
+		}catch(Exception e){
+			rttr.addFlashAttribute("result", "rFAIL");
+		}
+		
+		return "redirect:/picture/list";		
+	}
+	
+	private void deleteFile(PictureVO pic) {
+		// 실제로 저장 되어있는 썸네일과 사진 삭제
+		String oPath = pic.getOriginalname();
+		String tPath = pic.getFullname();
+		
+		File oFile = new File(uploadPath+oPath);
+		File tFile = new File(uploadPath+tPath);
+		
+		if(oFile.exists()){
+			oFile.delete();
+		}
+		if(tFile.exists()){
+			tFile.delete();
+		}
+	}
+
+	@RequestMapping(value="del",method=RequestMethod.POST)
+	public String postSelDel(RedirectAttributes rttr){//선택 삭제
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		try{
+			String[] fileList = request.getParameterValues("delFiles");
+			for(String file: fileList){
+				System.out.println(file);
+				PictureVO pic = new PictureVO();
+				pic.setFullname(file);
+				deleteFile(pic);
+				service.removeSelectedPicture(file);
+			}
+			rttr.addFlashAttribute("result", "rSUCCESS");
+		}catch(Exception e){
+			rttr.addFlashAttribute("result", "rFAIL");
 		}
 		return "redirect:/picture/list";		
 	}

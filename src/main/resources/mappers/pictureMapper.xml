@@ -13,4 +13,7 @@
 	<select id="selectPictureList" resultType="PictureVO">
 		select * from picturemanager.picture order by regdate desc
 	</select>
+	<delete id="deletePicture">
+		delete from picturemanager.picture where fullname = #{fullname}
+	</delete>
 </mapper>

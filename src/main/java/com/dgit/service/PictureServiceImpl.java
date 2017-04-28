@@ -35,4 +35,10 @@ public class PictureServiceImpl implements PictureService{
 		return pDao.selectPictureList();
 	}
 
+	@Override
+	public void removeSelectedPicture(String fullname) throws Exception {
+		// TODO Auto-generated method stub
+		pDao.deletePicture(fullname);
+	}
+
 }
