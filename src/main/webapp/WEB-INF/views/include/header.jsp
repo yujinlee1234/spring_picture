@@ -5,7 +5,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>PictureManager</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
     <link href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -35,7 +35,7 @@
       
       <header class="main-header">
         <!-- Logo -->
-        <a href="/resources/index2.html" class="logo">
+        <a href="${pageContext.request.contextPath }/picture/list" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>Yu</b>jin</span>
           <!-- logo for regular state and mobile devices -->
@@ -135,7 +135,7 @@
               	</c:if>
               	<c:if test="${empty auth }">
               		<br>
-              		<a href="#"><i class="fa fa-circle text-fail"></i> Offline</a>
+              		<a href="${pageContext.request.contextPath }/user/login"><i class="fa fa-circle text-fail"></i> Offline</a>
               	</c:if>              
             </div>
           </div>

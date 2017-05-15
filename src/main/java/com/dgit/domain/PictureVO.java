@@ -36,4 +36,9 @@ public class PictureVO {
 		String originalFileName = fullname.substring(fullname.lastIndexOf("/")+3);
 		return path+originalFileName;
 	}	
+	public String getOriginalFilename() {
+		//start index = 38
+		String originalPath = getOriginalname();		
+		return originalPath.substring(originalPath.lastIndexOf("/")+38);
+	}
 }

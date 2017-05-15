@@ -10,7 +10,7 @@ CREATE TABLE picturemanager.`member` (
 	utel varchar(100) NULL,	
 	uregdate timestamp DEFAULT now(),
 	CONSTRAINT member_pk PRIMARY KEY (uno)
-);
+	);
 
 CREATE TABLE picturemanager.picture (
 	fullname varchar(100) NOT NULL,
