@@ -6,10 +6,12 @@
 <style>
 	div.pItem{width:200px; float: left; margin: 10px;}
 	.pItem .pCheck{display: none; float: left;}
-	.pItem p{text-align: right;padding-right: 20px;}
+	.pItem p{text-align: right;padding-right: 22px;}
+	.pItem img{width: 178px; height: 100px;}
+	.pItem figcaption{text-align: right; padding-right: 22px;}
 	div#noItem figure{width: 100%; text-align: center;}
 	#delBtn{display: none;}
-	#cancelBtn{display: none;}
+	#cancelBtn{display: none;}	
 </style>
 <section class="content">
 	<div class="row">
@@ -28,8 +30,13 @@
 					<c:if test="${!empty picList }">
 						<c:forEach items="${picList }" var="pic">
 							<div class="pItem">
-								<p><input type="checkbox" name="delFiles" class="pCheck" value="${pic.fullname }">${pic.regdateText }</p>
-								<a href="#" class="showImage"><img alt="${pic.originalname }" src="display?filename=${pic.fullname }"></a>
+								<p><input type="checkbox" name="delFiles" class="pCheck" value="${pic.fullname }">${pic.regdateText }</p>	
+								<figure>
+									<a href="#" class="showImage">
+										<img alt="${pic.originalname }" src="display?filename=${pic.fullname }">
+									</a>
+									<figcaption>${pic.getOriginalFilename() }</figcaption>
+								</figure>
 							</div>
 						</c:forEach>
 					</c:if>
@@ -64,7 +71,8 @@
         <h4 class="modal-title">사진 보기</h4>
       </div>
       <div class="modal-body">
-        <img alt="" src="" id="modalImg">
+        <img alt="" src="" id="modalImg"><br>
+        <span id="fileName"></span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -93,8 +101,11 @@
 	$(function(){
 		$(".showImage").click(function(){
 			var path = $(this).find("img").attr("alt");
+			var filename = $(this).parents(".pItem").find("figcaption").text();
+			console.log("File Name : "+filename);
 			console.log("Path : "+path);
 			$("#modalImg").attr("src","display?filename="+path);
+			$("#fileName").text(filename);
 			$(this).attr("data-toggle","modal").attr("data-target","#myModal");
 			 //data-toggle="modal" data-target="#myModal"
 		});
